@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
 project(
-    "FirstProjectInCMake"
-    VERSION 1.1.0
+    "DynamiCLib"
+    VERSION 1.0.0
     DESCRIPTION "CMake C Project Template for Operating Systems II"
     LANGUAGES C
 )
@@ -16,15 +16,4 @@ include_directories(include)
 file(GLOB_RECURSE SOURCES "src/*.c")
 
 # Create the executable
-add_executable(${PROJECT_NAME} ${SOURCES})
-
-# Compile the libraries
-add_subdirectory(lib/libdyn)
-add_subdirectory(lib/libsta)
-
-# Include headers in lib
-target_include_directories(${PROJECT_NAME} PUBLIC lib/libdyn/include)
-target_include_directories(${PROJECT_NAME} PUBLIC lib/libsta/include)
-
-# Link the libraries
-target_link_libraries(${PROJECT_NAME} StatiCLib DynamiCLib)
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
