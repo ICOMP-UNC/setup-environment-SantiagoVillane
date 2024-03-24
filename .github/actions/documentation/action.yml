@@ -11,6 +11,8 @@ runs:
           DOX_CONF_FILE=$(pwd)/Doxyfile
 
           # ToDo: Add documentation about this command and describe better
+          # This command concatenates the contents of $DOX_CONF_FILE with additional configuration for Doxygen. Specifically, it adds the directories 'src', 'include', and 'lib' under the 'INPUT' section of the Doxyfile. 
+          # This means that Doxygen will parse and generate documentation for files in these directories.
           {
               cat $DOX_CONF_FILE
               echo "INPUT" = $(pwd)/src $(pwd)/include $(pwd)/lib
@@ -18,11 +20,16 @@ runs:
 
           # Generate documentation
           # ToDo: Add documentation about this command and describe better
+          # This command likely runs 'dot', a utility included with Graphviz, to process DOT language files that Doxygen might generate. 
+          # The '-c' option is typically used to clear the Graphviz cache.
+          
           sudo dot -c
 
           ERROR_FILE_FLAG=$(pwd)/dox_errors.txt
 
           # ToDo: Add documentation and describe better this command
+          # This command runs Doxygen using the configuration file $DOX_CONF_FILE ('-s' flag indicates to print messages to stdout). 
+          # The output of the command is redirected to the file specified by ERROR_FILE_FLAG, presumably to capture any errors or warnings produced during the documentation generation process.
           DOXYGEN_COMMAND=$(doxygen -s $DOX_CONF_FILE) > $ERROR_FILE_FLAG
 
           if [ -s $ERROR_FILE_FLAG ]; then

@@ -14,6 +14,9 @@ runs:
         echo $PROJECT_PATH
 
         # ToDo: Add documentation about 'tr' command and describe better this command
+        # The 'tr' command is used to translate or delete characters. Here it is used to replace newline characters with spaces, effectively converting the output 
+        # of 'find' command (which lists files separated by newlines) into a space-separated list of file paths. This list is then used as input to 'clang-format' command.
+        SOURCE_FILES=$(find $PROJECT_PATH/src -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
         SOURCE_FILES=$(find $PROJECT_PATH/src -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
         SOURCE_FILES+=$(find $PROJECT_PATH/include -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
         SOURCE_FILES+=$(find $PROJECT_PATH/lib -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
@@ -21,6 +24,8 @@ runs:
         ERROR_FILE_FLAG=$PROJECT_PATH/clang-format_errors.txt
 
         # ToDo: Add documentation and describe better this command
+        # The 'clang-format' command is used to format the source files according to a specified coding style. The '-i' option tells clang-format to modify the files in place.  
+        # The output of 'clang-format' command is redirected to the ERROR_FILE_FLAG (error file flag)variable, presumably to capture any errors that occur during the formatting process.
         CLANG_COMMAND=$(clang-format -i $SOURCE_FILES) > ${ERROR_FILE_FLAG}
 
         echo "Running: clang-format -i $SOURCE_FILES"
